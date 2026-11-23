@@ -1,21 +1,17 @@
 `timescale 1ns / 1ps
 //////////////////////////////////////////////////////////////////////////////////
-// Company: 
-// Engineer: 
-// 
-// Create Date:    18:17:26 04/28/2026 
-// Design Name: 
-// Module Name:    fir_filter_17tap_pipeline3 
-// Project Name: 
-// Target Devices: 
-// Tool versions: 
-// Description: 
-//
-// Dependencies: 
-//
-// Revision: 
-// Revision 0.01 - File Created
-// Additional Comments: 
+// Author:         Pradhyumna D Rao
+// Create Date:    18:17:26 04/28/2026
+// Module Name:    fir_filter_17tap_pipeline3
+// Project Name:   Low Power VLSI - 17-tap symmetric FIR filter
+// Target Device:  Xilinx Artix-7 xc7a100t-3csg324 (ISE 14.7)
+// Description:    17-tap linear-phase FIR low-pass filter (Q8 integer coeffs,
+//                 h[n] = h[16-n]). Symmetry folding: input samples with equal
+//                 coefficients are added first, so only 8 multipliers are
+//                 needed (h3 = 0 is skipped) instead of 17.
+//                 3-stage pipeline: (1) pre-add, (2) multiply, (3) accumulate.
+//                 Latency: 3 clock cycles from x_in to y_out.
+//                 y_out is not scaled: divide by 256 (>>> 8) for unity DC gain.
 //
 //////////////////////////////////////////////////////////////////////////////////
 
@@ -55,14 +51,14 @@ always @(posedge clk) begin
     x8<=x7; x7<=x6; x6<=x5; x5<=x4;
     x4<=x3; x3<=x2; x2<=x1; x1<=x_in;
 
-    s0 <= x1 + x16;
-    s1 <= x2 + x15;
-    s2 <= x3 + x14;
-    s3 <= x4 + x13;
-    s4 <= x5 + x12;
-    s5 <= x6 + x11;
-    s6 <= x7 + x10;
-    s7 <= x8 + x9;
+    s0 <= x_in + x16;
+    s1 <= x1 + x15;
+    s2 <= x2 + x14;
+    s3 <= x3 + x13;
+    s4 <= x4 + x12;
+    s5 <= x5 + x11;
+    s6 <= x6 + x10;
+    s7 <= x7 + x9;
     s8 <= x8;
 end
 

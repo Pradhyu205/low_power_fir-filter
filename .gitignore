@@ -1,0 +1,28 @@
+# Xilinx ISE / ISim generated files
+Working Directory/
+xst/
+isim/
+_xmsgs/
+*.ngc
+*.ngr
+*.syr
+*.xrpt
+*.wdb
+*.exe
+*.lso
+*.prj
+*.stx
+*.cmd
+*.cmd_log
+*.xmsgs
+*.log
+*.gise
+*.projectmgr
+iseconfig/
+webtalk*
+xilinxsim.ini
+*_summary.html
+*_envsettings.html
+# Simulation output
+*.vcd
+sim
